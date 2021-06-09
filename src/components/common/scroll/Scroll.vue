@@ -29,20 +29,26 @@ export default {
     };
   },
   mounted() {
-    (this.scroll = new BScroll(this.$refs.wrapper, {
+    //创建scroll对象
+     this.scroll = new BScroll(this.$refs.wrapper, {
       probeType: this.probeType,
       click: true,
       pullUpLoad: this.pullUpLoad,
       mouseWheel: true,
       observeDOM: true,
-    })),//上拉加载事件
-      this.scroll.on("pullingUp", () => {
-        this.$emit("moreData");
-      }),
-      this.scroll.on("scroll", (position) => {
-        //scroll事件左表传递给父组件
-        this.$emit("scrollToTop", position);
-      });
+    })
+      //上拉加载事件
+      if(this.pullUpLoad){
+        this.scroll.on("pullingUp", () => {
+          this.$emit("moreData");
+        })//滚动位置监听
+      }
+      if(this.probeType == 2 || this.probeType == 3){
+        this.scroll.on("scroll", (position) => {
+          //scroll事件左表传递给父组件
+          this.$emit("scrollToTop", position);
+        });
+      }
   },
   methods: {
     //scroll方法封装一下
@@ -52,6 +58,12 @@ export default {
     finishPullUp() {
       this.scroll.finishPullUp();
     },
+    refresh() {
+      this.scroll.refresh();
+    },
+    getScrollY() {
+    return this.scroll ? this.scroll.y : 0
+  }
   },
 };
 </script>

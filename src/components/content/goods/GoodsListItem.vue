@@ -1,6 +1,6 @@
 <template>
-  <div class="goods-item">
-      <img :src="goodsItem.show.img" alt="">
+  <div class="goods-item" @click = 'itemClick'>
+      <img :src="goodsItem.show.img" alt="" @load="imageLoad">
       <p class="goods-item-title">{{goodsItem.title}}</p>
       <div class="fontDiv">
           <span class="goods-item-price">￥{{goodsItem.price}}</span>
@@ -25,7 +25,28 @@ export default {
     return {
 
     };
-  }
+  },methods: {
+      //图片加载后函数
+      imageLoad(){
+          this.$bus.$emit('itemImageLoad')
+      },
+      //点击goodsListItem函数
+      itemClick(){
+          //params使用name+params
+          this.$router.push({
+              name : 'detail',
+              params : {
+                  iid : this.goodsItem.iid
+              }
+          })//query 使用path+query
+        //   this.$router.push({
+        //       path : '/detail',
+        //       query : {
+        //           iid : this.goodsItem.iid
+        //       }
+        //   })
+      }
+  },
 }
 </script>
 

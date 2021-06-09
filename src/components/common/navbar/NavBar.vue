@@ -14,14 +14,6 @@ return {
 
 }
 },
-//生命周期 - 创建完成（访问当前this实例）
-created() {
-
-},
-//生命周期 - 挂载完成（访问DOM元素）
-mounted() {
-
-}
 }
 </script>
 <style scoped>
@@ -30,7 +22,7 @@ mounted() {
     height: 44px;
     line-height: 44px;
     display: flex;
-    background-color: var(--color-tint);
+    box-shadow: 0 1px 1px rgba(100,100,100,.1);
     text-align: center;
     
     position: fixed;
@@ -42,10 +34,8 @@ mounted() {
 }
 .left,.right{
     width: 60px;
-    /* background-color:aqua; */
 }
 .center{
     flex:1;
-    color: white;
 }
 </style>

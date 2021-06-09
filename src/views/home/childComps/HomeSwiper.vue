@@ -1,44 +1,44 @@
 <!--  -->
 <template>
-       <swiper>
-       <swiper-item v-for='(item,index) in banners' :key='index'>
-           <a :href="item.link">
-               <img :src="item.image" alt="">
-           </a>
-       </swiper-item>
-   </swiper>
+  <swiper v-if = 'banners.length'>
+    <swiper-item v-for="(item, index) in banners" :key="index">
+      <a :href="item.link">
+        <img :src="item.image" alt="" @load="imageLoad" />
+      </a>
+    </swiper-item>
+  </swiper>
 </template>
 
 <script>
-import {Swiper,SwiperItem} from 'components/common/swiper'
+import { Swiper, SwiperItem } from "components/common/swiper";
 export default {
-components :{
+  components: {
     Swiper,
-    SwiperItem
-},props:{
-    banners:{
-        type : Array,
-        default (){
-            return []
-        }
-    }
-}
-,data() {
-return {
-
-}
-},
-//生命周期 - 创建完成（访问当前this实例）
-created() {
-
-},
-//生命周期 - 挂载完成（访问DOM元素）
-mounted() {
-
-}
-}
+    SwiperItem,
+  },
+  props: {
+    banners: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+  },
+  data() {
+    return {
+      isLoad: false,
+    };
+  },
+  methods: {
+    imageLoad() {
+      if (!this.isLoad) {
+        this.isLoad = true;
+        this.$emit("swiperImageLoad");
+      }
+    },
+  },
+};
 </script>
 <style scoped>
 /* @import url(); 引入css类 */
-
 </style>
